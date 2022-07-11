@@ -11,7 +11,7 @@ function editNav() {
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
-const closeModalBtn = document.querySelector(".close");
+const closeModalBtn = document.getElementById("close");
 
 
 //Actions:
@@ -29,9 +29,7 @@ const closeModalBtn = document.querySelector(".close");
 
 //Functions:
 	///Animation for Opening and Closing the modal
-	function closeAndClearLocalStorage() {
-		  greetingsModal.style.display = "none";
-		  form.style.display = "block";
+	function closeModal() {
 		  modalbg.style.display = "none";
 	  }
 
