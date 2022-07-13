@@ -1,27 +1,38 @@
 // DOM Elements
-const modalBg = document.querySelector(".bground");
-const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".formData");
-const closeModalBtn = document.getElementById("close");
-const modalContent = document.getElementById("content");
-const submitBtn = document.getElementById("submit");
-const form = document.getElementById("save_the_date_form");
-const greetingsModal = document.getElementById("modal-greetings");
-const closeGreetingsModalBtn = document.getElementById("greetings-btn");
-const locationInput = document.getElementsByName('location');
-const locationAlert = document.querySelector(".location-alert");
+	/// "Je m'inscris" button
+	const modalBtn = document.querySelectorAll(".modal-btn");
 
-const firstNameInput = document.getElementById("first");
-const lastNameInput = document.getElementById("last");
-const emailInput = document.getElementById("email");
-const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const birthdateInput = document.getElementById("birthdate");
-const birthdateRegex = /^(19[0-9][0-9]|20[01][0-9]|2020|2021|2022)[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/
-const tournamentNbInput = document.getElementById("quantity");
-const tournamentRegex = /^[0-9]{1,2}$/;
-const inputRegex = /^[a-zA-Z éèôâàîêëï-]{2,}$/;
+	/// Modal
+	const modalContent = document.getElementById("content");
+	const modalBg = document.querySelector(".bground");
+	const closeModalBtn = document.getElementById("close");
 
-const delay = 490;
+	/// Form
+	const form = document.getElementById("save_the_date_form");
+	const formData = document.querySelectorAll(".formData");
+	const submitBtn = document.getElementById("submit");
+	
+	/// Greeting Modal
+	const greetingsModal = document.getElementById("modal-greetings");
+	const closeGreetingsModalBtn = document.getElementById("greetings-btn");
+
+	/// Validation of the form
+	const firstNameInput = document.getElementById("first");
+	const lastNameInput = document.getElementById("last");
+	const emailInput = document.getElementById("email");
+	const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	const birthdateInput = document.getElementById("birthdate");
+	const birthdateRegex = /^(19[0-9][0-9]|20[01][0-9]|2020|2021|2022)[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/
+	const tournamentNbInput = document.getElementById("quantity");
+	const tournamentRegex = /^[0-9]{1,2}$/;
+	const inputRegex = /^[a-zA-Z éèôâàîêëï-]{2,}$/;
+
+	/// Alert for Location Missing
+	const locationInput = document.getElementsByName('location');
+	const locationAlert = document.querySelector(".location-alert");
+
+	/// Delay for Animations
+	const delay = 490;
 
 
 
@@ -47,7 +58,7 @@ const delay = 490;
 			closeAndClearLocalStorage();
 		};
 
-		////Error Messages when User input is incorrect
+		////Error Messages when User Input is Incorrect
 		firstNameInput.addEventListener("input", function () {
 			if (inputRegex.test(firstNameInput.value) != true) {
 			firstNameInput.style.border = "outset";
@@ -181,7 +192,7 @@ const delay = 490;
 			}, delay);
 		}
 
-		////CGU checking
+		////CGU Checking
 		function checkCGU() {
 			if (document.getElementById('checkbox1').checked) {  
 			submitBtn.disabled = false;
@@ -190,7 +201,7 @@ const delay = 490;
 			}
 		};
 
-		////Get the location selected by the user
+		////Get the Location Selected by the User
 		function getLocation() {
 			var x = document.getElementsByName('location');
 			for(let i = 0; i < x.length; i++) {
