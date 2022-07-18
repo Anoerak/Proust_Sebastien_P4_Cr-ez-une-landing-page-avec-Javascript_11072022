@@ -75,32 +75,27 @@
 							<label for="first">Prénom</label><br>
 							<input class="text-control"	type="text"	id="first" name="first"	minlength="2"/>
 							<br>
-							<span class="firstError error"></span>
 						</div>
 						<div class="formData">
 							<label for="last">Nom</label><br>
 							<input class="text-control"	type="text"	id="last" name="last" minlength="2"/>
 							<br>
-							<span class="lastError error"></span>
 						</div>
 						<div class="formData">
 							<label for="email">E-mail</label><br>
 							<input class="text-control"	type="email" id="email"	name="email"/>
 							<br>
-							<span class="emailError error"></span>
 						</div>
 						<div class="formData">
 							<label for="birthdate">Date de naissance</label>
 							<br>
 							<input class="text-control"	type="date"	id="birthdate" name="birthdate"/>
 							<br>
-							<span class="birthdateError error"></span>
 						</div>
 						<div class="formData">
 							<label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label>
 							<br>
 							<input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
-							<span class="tournamentError error"></span>
 						</div>
 						<p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
 						<div class="formData location-alert">
@@ -163,6 +158,7 @@
 			Copyright 2014 - 2022, GameOn Inc.
 		</p>
 	</footer>
+	<script src="./js/CheckForm.js"></script>
 	<script src="./js/modal.js"></script>
 	</body>
 </html>

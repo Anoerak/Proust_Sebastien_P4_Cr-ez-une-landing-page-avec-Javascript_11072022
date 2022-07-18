@@ -20,12 +20,8 @@
 	const firstNameInput = document.getElementById("first");
 	const lastNameInput = document.getElementById("last");
 	const emailInput = document.getElementById("email");
-	const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	const birthdateInput = document.getElementById("birthdate");
-	const birthdateRegex = /^(19[0-9][0-9]|20[01][0-9]|2020|2021|2022)[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/
 	const tournamentNbInput = document.getElementById("quantity");
-	const tournamentRegex = /^[0-9]{1,2}$/;
-	const inputRegex = /^[a-zA-Z éèôâàîêëï-]{2,}$/;
 
 	/// Alert for Location Missing
 	const locationInput = document.getElementsByName('location');
@@ -51,7 +47,7 @@
 		};
 		window.onclick = function(e) {
 			if (e.target == modalBg) {
-			closeAndClearLocalStorage();
+				closeAndClearLocalStorage();
 			}
 		}
 		closeGreetingsModalBtn.onclick = function () {
@@ -59,83 +55,44 @@
 		};
 
 		////Error Messages when User Input is Incorrect
-		firstNameInput.addEventListener("input", function () {
-			if (inputRegex.test(firstNameInput.value) != true) {
-			firstNameInput.style.border = "outset";
-			firstNameInput.style.borderColor = "red";
-			firstNameInput.style.borderWidth = "3px";
-			document.getElementsByClassName("firstError")[0].style.display = "block";
-			document.getElementsByClassName("firstError")[0].textContent = "2 lettres minimum, pas de chiffres ou caractères spéciaux.";
-			} else {
-				firstNameInput.style.borderColor = "transparent";
-			document.getElementsByClassName("firstError")[0].style.display = "none";
+		let checkForm = new CheckForm();
 
-			}
-		});
-		lastNameInput.addEventListener("input", function () {
-			if (inputRegex.test(lastNameInput.value) != true) {
-			lastNameInput.style.border = "outset";
-			lastNameInput.style.borderColor = "red";
-			lastNameInput.style.borderWidth = "3px";
-			document.getElementsByClassName("lastError")[0].style.display = "block";
-			document.getElementsByClassName("lastError")[0].textContent = "2 lettres minimum, pas de chiffres ou caractères spéciaux.";
-			} else {
-			lastNameInput.style.borderColor = "transparent";
-			document.getElementsByClassName("lastError")[0].style.display = "none";
-			}
-		});
-		emailInput.addEventListener("input", function () {
-			if (emailRegex.test(emailInput.value) != true) {
-			emailInput.style.border = "outset";
-			emailInput.style.borderColor = "red";
-			emailInput.style.borderWidth = "3px";
-			document.getElementsByClassName("emailError")[0].style.display = "block";
-			document.getElementsByClassName("emailError")[0].textContent = "Email invalide.";
-			} else {
-			emailInput.style.borderColor = "transparent";
-			document.getElementsByClassName("emailError")[0].style.display = "none";
-			}
-		});
-		birthdateInput.addEventListener("input", function () {
-			if (birthdateRegex.test(birthdateInput.value) != true) {
-			birthdateInput.style.border = "outset";
-			birthdateInput.style.borderColor = "red";
-			birthdateInput.style.borderWidth = "3px";
-			document.getElementsByClassName("birthdateError")[0].style.display = "block";
-			document.getElementsByClassName("birthdateError")[0].textContent = "Date invalide. Vérifier l'année saisie.";
-			} else {
-			birthdateInput.style.borderColor = "transparent";
-			document.getElementsByClassName("birthdateError")[0].style.display = "none";
-			}
-		});
-		tournamentNbInput.addEventListener("input", function () {
-			if (tournamentRegex.test(tournamentNbInput.value) != true) {
-			tournamentNbInput.style.border = "outset";
-			tournamentNbInput.style.borderColor = "red";
-			tournamentNbInput.style.borderWidth = "3px";
-			document.getElementsByClassName("tournamentError")[0].style.display = "block";
-			document.getElementsByClassName("tournamentError")[0].textContent = "Nombre de Tournoi invalide.";
-			} else {
-			tournamentNbInput.style.borderColor = "transparent";
-			document.getElementsByClassName("tournamentError")[0].style.display = "none";
-			}
-		});
-		for (let i = 0; i < locationInput.length; i++) {
-			locationInput[i].addEventListener("click", function() {
+		firstNameInput.addEventListener("input", () => checkForm.checkTextInput(firstNameInput));
+
+		lastNameInput.addEventListener("input", () => checkForm.checkTextInput(lastNameInput));
+
+		emailInput.addEventListener("input", () => checkForm.checkEmailInput(emailInput));
+
+		birthdateInput.addEventListener("input", () => checkForm.checkBirthdateInput(birthdateInput));
+
+		tournamentNbInput.addEventListener("input", () => checkForm.checkTournamentInput(tournamentNbInput));
+		
+		////Check if the User has Selected a Location
+		function locationIsNotValid () {
+			locationAlert.style.borderColor = "red";
+			locationAlert.style.borderWidth = "2px";
+			locationAlert.style.borderStyle = "solid";
+			locationAlert.style.borderRadius = "7px";
+			locationAlert.style.padding = "0 5px 10px 0";
+			document.getElementsByClassName("locationError")[0].style.display = "block";
+			document.getElementsByClassName("locationError")[0].textContent = "Veuillez choisir une ville.";
+		}
+		function locationIsValid () {
+			locationAlert.style.borderStyle = "none";
+			locationAlert.style.padding = "0";
+			document.getElementsByClassName("locationError")[0].style.display = "none";
+		}
+
+		function checkLocationInput() {
 			if (getLocation() === undefined) {
-				locationAlert.style.borderColor = "red";
-				locationAlert.style.borderWidth = "2px";
-				locationAlert.style.borderStyle = "solid";
-				locationAlert.style.borderRadius = "7px";
-				locationAlert.style.padding = "0 5px 10px 0";
-				document.getElementsByClassName("locationError")[0].style.display = "block";
-				document.getElementsByClassName("locationError")[0].textContent = "Veuillez choisir une ville.";
+				locationIsNotValid();
 			} else {
-				locationAlert.style.borderStyle = "none";
-				locationAlert.style.padding = "0";
-				document.getElementsByClassName("locationError")[0].style.display = "none";
+				locationIsValid();
 			}
-			})
+		};
+
+		for (let i = 0; i < locationInput.length; i++) {
+			locationInput[i].addEventListener("click", () => checkLocationInput());
 		};
 
 
@@ -214,59 +171,20 @@
 
 		////Submission of the Form Functions
 		function regexValidation()  {
-			if (inputRegex.test(firstNameInput.value) != true) {
-			firstNameInput.style.borderColor = "red";
-			firstNameInput.style.borderWidth = "3px";
-			document.getElementsByClassName("firstError")[0].style.display = "block";
-			document.getElementsByClassName("firstError")[0].textContent = "2 lettres minimum, pas de chiffres ou caractères spéciaux.";
+			if (checkForm.checkTextInput(firstNameInput) != true) {
 			return false;
-			} else if (inputRegex.test(lastNameInput.value) != true) {
-			lastNameInput.style.borderColor = "red";
-			lastNameInput.style.borderWidth = "3px";
-			document.getElementsByClassName("lastError")[0].style.display = "block";
-			document.getElementsByClassName("lastError")[0].textContent = "2 lettres minimum, pas de chiffres ou caractères spéciaux.";
+			} else if (checkForm.checkTextInput(lastNameInput) != true) {
 			return false;
-			} else if (emailRegex.test(emailInput.value) != true) {
-			emailInput.style.borderColor = "red";
-			emailInput.style.borderWidth = "3px";
-			document.getElementsByClassName("emailError")[0].style.display = "block";
-			document.getElementsByClassName("emailError")[0].textContent = "Email invalide.";
+			} else if (checkForm.checkEmailInput(emailInput) != true) {
 			return false;
-			} else if (birthdateRegex.test(birthdateInput.value) != true) {
-			birthdateInput.style.borderColor = "red";
-			birthdateInput.style.borderWidth = "3px";
-			document.getElementsByClassName("birthdateError")[0].style.display = "block";
-			document.getElementsByClassName("birthdateError")[0].textContent = "Date invalide. Vérifiez l'année saisie.";
+			} else if (checkForm.checkBirthdateInput(birthdateInput) != true) {
 			return false;
-			} else if (tournamentRegex.test(tournamentNbInput.value) != true) {
-			tournamentNbInput.style.borderColor = "red";
-			tournamentNbInput.style.borderWidth = "3px";
-			document.getElementsByClassName("tournamentError")[0].style.display = "block";
-			document.getElementsByClassName("tournamentError")[0].textContent = "Nombre de Tournoi invalide.";
+			} else if (checkForm.checkTournamentInput(tournamentNbInput) != true) {
 			return false;
 			} else if (getLocation() === undefined) {
-			locationAlert.style.borderColor = "red";
-			locationAlert.style.borderWidth = "2px";
-			locationAlert.style.borderStyle = "solid";
-			locationAlert.style.borderRadius = "7px";
-			locationAlert.style.padding = "0 5px 10px 0";
-			document.getElementsByClassName("locationError")[0].style.display = "block";
-			document.getElementsByClassName("locationError")[0].textContent = "Veuillez choisir une ville.";
+				locationIsNotValid();
 			return false;
 			} else {
-			firstNameInput.style.borderStyle = "none";
-			document.getElementsByClassName("firstError")[0].style.display = "none";
-			lastNameInput.style.borderStyle = "none";
-			document.getElementsByClassName("lastError")[0].style.display = "none";
-			emailInput.style.borderStyle = "none";
-			document.getElementsByClassName("emailError")[0].style.display = "none";
-			birthdateInput.style.borderStyle = "none";
-			document.getElementsByClassName("birthdateError")[0].style.display = "none";
-			tournamentNbInput.style.borderStyle = "none";
-			document.getElementsByClassName("tournamentError")[0].style.display = "none";
-			locationAlert.style.borderStyle = "none";
-			locationAlert.style.padding = "0";
-			document.getElementsByClassName("locationError")[0].style.display = "none";
 			return true;
 			}
 		}
@@ -298,5 +216,6 @@
 			return false;
 			} else {
 			return false;
+			console.log("Form not valid");
 			}
 		}
