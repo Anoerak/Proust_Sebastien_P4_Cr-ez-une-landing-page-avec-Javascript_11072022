@@ -31,7 +31,6 @@
 	const delay = 490;
 
 
-
 // Actions:
 	/// Modal
 		//// Launch Modal Event
@@ -203,19 +202,18 @@
 		}
 		function validate() {
 			if (regexValidation() === true) {
-			storeUserData();
-			document.getElementById("registered_user_name").textContent = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
-			document.getElementById("chosen_location").textContent = localStorage.getItem("locationChoice");
-			if(localStorage.getItem("inscription Newsletter") === "true") {
-				document.getElementById("greetings-message").style.display = "block";
-				} else {
-				document.getElementById("greetings-message").style.display = "none";
-				};
-			form.style.display = "none";
-			greetingsModal.style.display = "flex";
-			return false;
+				storeUserData();
+				document.getElementById("registered_user_name").textContent = localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
+				document.getElementById("chosen_location").textContent = localStorage.getItem("locationChoice");
+					if(localStorage.getItem("inscription Newsletter") === "true") {
+						document.getElementById("greetings-message").style.display = "block";
+					} else {
+						document.getElementById("greetings-message").style.display = "none";
+					};
+				form.style.display = "none";
+				greetingsModal.style.display = "flex";
+				return false;
 			} else {
-			return false;
-			console.log("Form not valid");
+				return false;
 			}
 		}
